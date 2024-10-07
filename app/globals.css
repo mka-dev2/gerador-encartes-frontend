@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+@font-face {
+  font-family: 'Zona Pro';
+  src: url('./fonts/ZonaPro-Black.woff2') format('woff2'),
+      url('./fonts/ZonaPro-Black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('./fonts/Montserrat-ExtraBold.woff2') format('woff2'),
+      url('./fonts/Montserrat-ExtraBold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Adicione mais variantes de peso se necessário */
+body {
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
+.container-a4 {
+  width: 210mm;
+  height: 297mm;
+  margin: auto;
+  padding: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+
+.page-content {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2mm;
+  padding: 70mm 3mm 0mm 4.5mm;
+  position: relative;
+}
+
+.product-card {
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 180px; /* Largura fixa */
+  height: 240px; /* Altura fixa */
+
+}
+
+.product-card img {
+  max-width: 100%;
+  height: 90px; /* Altura reduzida */
+  object-fit: contain;
+
+  transform: scale(1.3); /* Remover a escala excessiva */
+  margin: 0 auto; /* Centralizar a imagem horizontalmente */
+  
+}
+
+
+.product-name {
+  margin-top: 0px;
+  font-family: 'Zona Pro';
+  color: #000;
+  text-align: center;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .0rem;
+  z-index: 2;
+  height: 26px;
+    word-wrap: break-word;  /* Quebra a linha quando necessário */
+    word-break: break-all;  /* Quebra a linha em qualquer ponto, mesmo no meio de palavras */
+    white-space: normal;    /* Permite a quebra de linhas */
+  
+
+  /* Limitar o texto a 2 linhas */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  line-height: 1.2em; /* Define o espaçamento entre linhas */
+  height: calc(1.2em * 2); /* Altura suficiente para 2 linhas de texto */
+}
+
+
+.product-price {
+  margin-top: 10px;
+  color: #fff;
+  z-index: 2;
+  font-family: 'Montserrat';
+  box-shadow: 0 3px 3px #777; /* Valor fixo para sombra */
+  width: 100%;
+  border-radius: 5px; /* Valor fixo para borda */
+}
+
+.currency {
+  font-size: 29px;
+  float:inline-start;
+  font-weight: bold;
+
+  height: 100%;
+  padding: 3px 4px;
+  border-radius: 1px 5px 5px 1px;
+  display: flex;
+  align-items: center;
+}
+
+.price {
+  font-size: 31px;
+  font-weight: 900;
+  margin-left: 10px;
+  color: #000;
+
+  letter-spacing: .1rem;
+  text-transform: uppercase;
+
+}
+/* Garantir que a identidade da campanha não seja coberta */
+#encarte.first-page {
+  min-height: 120mm; /* Altura mínima para a primeira página */
+}
+
+.container{
+  max-width: 210mm !important;
+}
+
+.data{
+  transform: translateY(93%);
+  color: #fff;
+}
+
+.data-topo{
+  transform: translateY(-3305%);
+  color: #fff;
+}
+
+.data-fim{
+  transform: translateY(700%);
+  color: #fff;
+}
