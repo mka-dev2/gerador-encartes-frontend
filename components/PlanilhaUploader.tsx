@@ -95,7 +95,7 @@ export default function PlanilhaUploader({ onProductsUploaded }: PlanilhaUploade
                   preco: parseFloat(row.getCell(3).value?.toString() || '0').toFixed(2).replace(".", ","),
                   inicio: data_inicio || '',
                   fim: data_fim || '',
-                  imagem: `http://localhost:3001/uploads/${nomeImagem}`,
+                  imagem: `https://gerador-encartes-backend-production.up.railway.app:8080/uploads/${nomeImagem}`,
                 };
                 produtos.push(produto);
               }

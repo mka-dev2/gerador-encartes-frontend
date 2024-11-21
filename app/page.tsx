@@ -28,7 +28,7 @@ const uploadImageToServer = async (file: File) => {
   const formData = new FormData();
   formData.append("image", file);
 
-  const response = await fetch("http://localhost:3001/upload", { // URL do backend
+  const response = await fetch("https://gerador-encartes-backend-production.up.railway.app:8080/upload", { // URL do backend
     method: "POST",
     body: formData,
   });

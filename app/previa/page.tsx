@@ -50,10 +50,10 @@ export default function VisualizationPage() {
     const produtosStr = localStorage.getItem("produtos");
     const storedColorScheme = localStorage.getItem("selectedColor");
     if (background) {
-        setMainBackground(`http://localhost:3001${background}`);
+        setMainBackground(`https://gerador-encartes-backend-production.up.railway.app:8080${background}`);
       }
       if (secBackground) {
-        setSubsequentBackground(`http://localhost:3001${secBackground}`);
+        setSubsequentBackground(`https://gerador-encartes-backend-production.up.railway.app:8080${secBackground}`);
       }
     if (produtosStr) {
       const produtos: Produto[] = JSON.parse(produtosStr);
