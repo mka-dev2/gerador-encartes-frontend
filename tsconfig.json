@@ -1,6 +1,11 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "target": "es2015",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext",
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -10,17 +15,28 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "types": ["jest", "node"],
-    "jsx": "react",
+    "types": [
+      "jest",
+      "node"
+    ],
+    "jsx": "preserve",
     "incremental": true,
     "forceConsistentCasingInFileNames": true,
     "strictNullChecks": true,
-    "baseUrl": ".",  // Define o diretório raiz do projeto
+    "baseUrl": ".", // Define o diretório raiz do projeto
     "paths": {
-      "@/*": ["./*"],
-      "@components/*": ["components/*"],  // Importação fácil de componentes
-      "@styles/*": ["styles/*"],  // Importação fácil de estilos
-      "@utils/*": ["utils/*"]  // Importação fácil de utilitários
+      "@/*": [
+        "./*"
+      ],
+      "@components/*": [
+        "components/*"
+      ], // Importação fácil de componentes
+      "@styles/*": [
+        "styles/*"
+      ], // Importação fácil de estilos
+      "@utils/*": [
+        "utils/*"
+      ] // Importação fácil de utilitários
     },
     "plugins": [
       {
@@ -34,5 +50,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

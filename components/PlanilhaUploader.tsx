@@ -1,5 +1,5 @@
 "use client";
-import ExcelJS from 'exceljs';
+import ExcelJS, { CellErrorValue, CellFormulaValue, CellHyperlinkValue, CellRichTextValue, CellSharedFormulaValue } from 'exceljs';
 import React from 'react';
 
 interface Produto {
@@ -8,23 +8,31 @@ interface Produto {
   descricao: string;
   preco: string; // Preço como string formatado
   imagem: string; // Caminho da imagem associada ao código
+  inicio: string;
+  fim: string;
 }
+type ExcelCellValue = string | number | Date | boolean | CellErrorValue | CellRichTextValue | CellHyperlinkValue | CellFormulaValue | CellSharedFormulaValue;
 
 interface PlanilhaUploaderProps {
-  onProductsUploaded: (produtos: Produto[], inicio: string, fim: string) => void;
+  onProductsUploaded: (produtos: Produto[]) => void;
 }
 
-// Função para converter datas Excel para o formato legível
-const convertExcelDate = (excelDate: any): string => {
+const convertExcelDate = (excelDate: ExcelCellValue): string => {
   if (typeof excelDate === 'number') {
     // Verifica se é um número e converte a partir de uma data serializada do Excel
     const date = new Date(Math.round((excelDate - 25569) * 86400 * 1000));
     return date.toLocaleDateString('pt-BR');
+  } else if (typeof excelDate === 'string') {
+    // Caso seja uma string no formato dd/mm/yyyy
+    return excelDate;
   } else if (excelDate instanceof Date) {
     // Caso já seja uma instância de Date
     return excelDate.toLocaleDateString('pt-BR');
+  } else {
+    // Para outros tipos (boolean, CellErrorValue, CellRichTextValue, etc.)
+    // Retornamos uma string vazia, pois esses não são valores válidos de data
+    return '';
   }
-  return ''; // Se não for uma data válida, retorna uma string vazia
 };
 
 // Função para remover códigos do início do nome do produto
@@ -34,12 +42,12 @@ const tratarNomeProduto = (nomeCompleto: string | undefined): string => {
   }
 
   // Expressão regular para remover códigos no início e manter apenas o nome do produto
-  const regex = /^[A-Za-z0-9\-]*[ ]?(-|–)[ ]?/;
+  // const regex = /^[A-Za-z0-9\-]*[ ]?(-|–)[ ]?/;
   
   // Aplica a regex ao nome completo para remover a parte inicial indesejada
-  const nomeTratado = nomeCompleto.replace(regex, '').trim();
+  // const nomeTratado = nomeCompleto.replace(regex, '').trim();
 
-  return nomeTratado;
+  return nomeCompleto;
 };
 
 export default function PlanilhaUploader({ onProductsUploaded }: PlanilhaUploaderProps) {
@@ -58,18 +66,18 @@ export default function PlanilhaUploader({ onProductsUploaded }: PlanilhaUploade
           const worksheet = workbook.worksheets[0]; // Usar a primeira planilha
           
           const produtos: Produto[] = [];
-          let inicio = '';
-          let fim = '';
+          let data_inicio = '';
+          let data_fim = '';
 
           // Lê as datas de início e fim da promoção na segunda linha, com verificação
-          const inicioData = worksheet.getRow(2).getCell(6).value;
-          const fimData = worksheet.getRow(2).getCell(7).value;
+          const inicioData = worksheet.getRow(2).getCell(4).value;
+          const fimData = worksheet.getRow(2).getCell(5).value;
 
           if (inicioData) {
-            inicio = convertExcelDate(inicioData);
+            data_inicio = convertExcelDate(inicioData);
           }
           if (fimData) {
-            fim = convertExcelDate(fimData);
+            data_fim = convertExcelDate(fimData);
           }
 
           // Itera sobre as linhas da planilha para processar os produtos
@@ -84,7 +92,9 @@ export default function PlanilhaUploader({ onProductsUploaded }: PlanilhaUploade
                   codigo: codigo,
                   nome: tratarNomeProduto(row.getCell(2).value?.toString()),
                   descricao: row.getCell(2).value?.toString() || '',
-                  preco: parseFloat(row.getCell(5).value?.toString() || '0').toFixed(2).replace(".", ","),
+                  preco: parseFloat(row.getCell(3).value?.toString() || '0').toFixed(2).replace(".", ","),
+                  inicio: data_inicio || '',
+                  fim: data_fim || '',
                   imagem: `http://localhost:3001/uploads/${nomeImagem}`,
                 };
                 produtos.push(produto);
@@ -92,12 +102,8 @@ export default function PlanilhaUploader({ onProductsUploaded }: PlanilhaUploade
             }
           });
 
-          console.log('Produtos da planilha:', produtos);
-          console.log('Data de início:', inicio);
-          console.log('Data de fim:', fim);
-
           // Envia os produtos e as datas para o componente pai
-          onProductsUploaded(produtos, inicio, fim);
+          onProductsUploaded(produtos);
 
         } catch (error) {
           console.error("Erro ao processar a planilha:", error);

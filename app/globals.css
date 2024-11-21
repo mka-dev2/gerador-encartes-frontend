@@ -94,7 +94,6 @@ body {
   z-index: 2;
   height: 26px;
     word-wrap: break-word;  /* Quebra a linha quando necessário */
-    word-break: break-all;  /* Quebra a linha em qualquer ponto, mesmo no meio de palavras */
     white-space: normal;    /* Permite a quebra de linhas */
   
 

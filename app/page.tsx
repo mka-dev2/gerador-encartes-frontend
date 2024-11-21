@@ -6,6 +6,16 @@ import PlanilhaUploader from "../components/PlanilhaUploader";
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { useRouter } from "next/navigation";
+import React from "react";
+
+interface Produto {
+  codigo: string;
+  nome: string;
+  preco: string;
+  inicio: string;
+  fim: string;
+  imagem: string; // Agora faz parte da interface Produto
+}
 
 // Definindo as cores padrão
 const colors = [
@@ -38,7 +48,7 @@ export default function UploadPage() {
   const [uploadedProductImages, setUploadedProductImages] = useState<string[]>([]); // URLs das imagens carregadas
   const [uploadedMainBackground, setUploadedMainBackground] = useState<string | null>(null); // URL do background carregado
   const [uploadedSubsequentBackground, setUploadedSubsequentBackground] = useState<string | null>(null); // URL do background carregado
-  const [produtos, setProdutos] = useState<any[]>([]);
+  const [produtos, setProdutos] = useState<Produto[]>([]);
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [uploadStatus, setUploadStatus] = useState({
     mainBackground: false,
@@ -63,7 +73,16 @@ export default function UploadPage() {
     if (produtos.length > 0) {
       setUploadStatus((prev) => ({ ...prev, produtos: true }));
     }
-  }, [uploadedMainBackground, uploadedSubsequentBackground, uploadedProductImages, produtos]);
+    if (mainBackground) {
+      document.body.style.backgroundImage = `url(${mainBackground})`;
+    }
+    if (productImages) {
+      document.body.style.backgroundImage = `url(${productImages})`;
+    }
+    if (subsequentBackground) {
+      document.body.style.backgroundImage = `url(${subsequentBackground})`;
+    }
+  }, [uploadedMainBackground, uploadedSubsequentBackground, uploadedProductImages, produtos, mainBackground, subsequentBackground, productImages]);
 
   // Lidar com o upload das imagens de background
   const handleBackgroundUpload = async (file: File, isMain: boolean) => {
