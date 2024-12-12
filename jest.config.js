@@ -6,7 +6,7 @@ module.exports = {
       '^.+\\.tsx?$': 'ts-jest',
     },
     images: {
-      domains: ['localhost'],
+      domains: [process.env.URL],
     },
     moduleNameMapper: {
       '\\.(css|less)$': 'identity-obj-proxy', // Para suportar arquivos de estilo

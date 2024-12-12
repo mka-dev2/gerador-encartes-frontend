@@ -32,8 +32,8 @@ export default function VisualizationPage() {
 
   // Esquema de cores para a moeda e preço
   const [colorScheme, setColorScheme] = useState<ColorScheme>({
-    currencyColor: "#000",
-    priceColor: "#000",
+    currencyColor: "#fff",
+    priceColor: "#fff",
   });
 
   // Estados para personalização de imagens
@@ -50,10 +50,10 @@ export default function VisualizationPage() {
     const produtosStr = localStorage.getItem("produtos");
     const storedColorScheme = localStorage.getItem("selectedColor");
     if (background) {
-        setMainBackground(`https://gerador-encartes-backend-production.up.railway.app:8080${background}`);
+        setMainBackground(process.env.BACKEND+`${background}`);
       }
       if (secBackground) {
-        setSubsequentBackground(`https://gerador-encartes-backend-production.up.railway.app:8080${secBackground}`);
+        setSubsequentBackground(process.env.BACKEND+`${secBackground}`);
       }
     if (produtosStr) {
       const produtos: Produto[] = JSON.parse(produtosStr);
