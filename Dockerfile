@@ -32,7 +32,7 @@ COPY --from=builder /app/package*.json ./
 RUN npm install --production
 
 # Expor a porta utilizada pela aplicação
-EXPOSE 4000
+EXPOSE 80
 
 # Comando para iniciar a aplicação
 CMD ["npm", "start"]
