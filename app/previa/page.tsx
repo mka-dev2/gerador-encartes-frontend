@@ -50,10 +50,10 @@ export default function VisualizationPage() {
     const produtosStr = localStorage.getItem("produtos");
     const storedColorScheme = localStorage.getItem("selectedColor");
     if (background) {
-        setMainBackground(`https://encarte-be.likedsg.com/${background}`);
+        setMainBackground(`https://encarte-be.likedsg.com${background}`);
       }
       if (secBackground) {
-        setSubsequentBackground(`https://encarte-be.likedsg.com/${secBackground}`);
+        setSubsequentBackground(`https://encarte-be.likedsg.com${secBackground}`);
       }
     if (produtosStr) {
       const produtos: Produto[] = JSON.parse(produtosStr);
