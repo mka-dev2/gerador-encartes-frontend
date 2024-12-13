@@ -28,7 +28,7 @@ const uploadImageToServer = async (file: File) => {
   const formData = new FormData();
   formData.append("image", file);
 
-  const response = await fetch(process.env.BACKEND+"/upload", { // URL do backend
+  const response = await fetch("https://encarte-be.likedsg.com/upload", { // URL do backend
     method: "POST",
     body: formData,
   });
